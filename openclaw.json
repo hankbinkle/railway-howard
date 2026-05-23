@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.5.20"
+  },
+  "gateway": {
+    "controlUi": {
+      "allowedOrigins": ["*"]
+    },
+    "trustedProxies": ["127.0.0.1"],
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "auth": {
+    "profiles": {
+      "deepseek:default": {
+        "provider": "deepseek",
+        "mode": "api_key"
+      },
+      "anthropic:default": {
+        "provider": "anthropic",
+        "mode": "api_key"
+      },
+      "openai:default": {
+        "provider": "openai",
+        "mode": "api_key"
+      },
+      "google:default": {
+        "provider": "google",
+        "mode": "api_key"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "deepseek/deepseek-v4-flash"
+      },
+      "models": {
+        "anthropic/claude-opus-4-7": { "alias": "Claude Opus" },
+        "anthropic/claude-sonnet-4-6": { "alias": "Claude Sonnet" },
+        "anthropic/claude-haiku-4-5-20251001": { "alias": "Claude Haiku" },
+        "deepseek/deepseek-v4-flash": { "alias": "DeepSeek" },
+        "deepseek/deepseek-v4-pro": { "alias": "DeepSeek Pro" },
+        "google/gemini-2.5-flash": { "alias": "Gemini Flash" },
+        "google/gemini-2.5-pro": { "alias": "Gemini Pro" },
+        "openai/gpt-4o": { "alias": "ChatGPT" },
+        "openai/gpt-4o-mini": { "alias": "ChatGPT Mini" },
+        "openai/o3": { "alias": "OpenAI o3" },
+        "openai/o4-mini": { "alias": "OpenAI o4-mini" }
+      },
+      "workspace": "/data/workspace",
+      "heartbeat": {
+        "every": "0m"
+      }
+    }
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "deepseek": {
+        "api": "openai-completions",
+        "baseUrl": "https://api.deepseek.com",
+        "models": [
+          {
+            "api": "openai-completions",
+            "compat": {
+              "maxTokensField": "max_tokens",
+              "supportsReasoningEffort": true,
+              "supportsUsageInStreaming": true
+            },
+            "contextWindow": 1000000,
+            "cost": {
+              "cacheRead": 0.028,
+              "cacheWrite": 0,
+              "input": 0.14,
+              "output": 0.28
+            },
+            "id": "deepseek-v4-flash",
+            "input": ["text"],
+            "maxTokens": 384000,
+            "name": "DeepSeek V4 Flash",
+            "reasoning": true
+          },
+          {
+            "api": "openai-completions",
+            "compat": {
+              "maxTokensField": "max_tokens",
+              "supportsReasoningEffort": true,
+              "supportsUsageInStreaming": true
+            },
+            "contextWindow": 1000000,
+            "cost": {
+              "cacheRead": 0.145,
+              "cacheWrite": 0,
+              "input": 1.74,
+              "output": 3.48
+            },
+            "id": "deepseek-v4-pro",
+            "input": ["text"],
+            "maxTokens": 384000,
+            "name": "DeepSeek V4 Pro",
+            "reasoning": true
+          },
+          {
+            "api": "openai-completions",
+            "compat": {
+              "maxTokensField": "max_tokens",
+              "supportsUsageInStreaming": true
+            },
+            "contextWindow": 131072,
+            "cost": {
+              "cacheRead": 0.028,
+              "cacheWrite": 0,
+              "input": 0.28,
+              "output": 0.42
+            },
+            "id": "deepseek-chat",
+            "input": ["text"],
+            "maxTokens": 8192,
+            "name": "DeepSeek Chat",
+            "reasoning": false
+          },
+          {
+            "api": "openai-completions",
+            "compat": {
+              "maxTokensField": "max_tokens",
+              "supportsReasoningEffort": false,
+              "supportsUsageInStreaming": true
+            },
+            "contextWindow": 131072,
+            "cost": {
+              "cacheRead": 0.028,
+              "cacheWrite": 0,
+              "input": 0.28,
+              "output": 0.42
+            },
+            "id": "deepseek-reasoner",
+            "input": ["text"],
+            "maxTokens": 65536,
+            "name": "DeepSeek Reasoner",
+            "reasoning": true
+          }
+        ]
+      }
+    }
+  },
+  "tools": {
+    "profile": "coding",
+    "web": {
+      "search": {
+        "enabled": true,
+        "provider": "gemini"
+      }
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "skills": {
+    "entries": {
+      "node-connect": {
+        "enabled": true
+      }
+    }
+  }
+}
