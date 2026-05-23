@@ -170,7 +170,15 @@ Some systems must be managed through a single designated skill. Don't build ad-h
 
 For all other skills, check `SKILL.md` first. There's a good chance a dedicated skill already exists.
 
-## Tools
+## Reference Files in Workspace
+
+These files live in your workspace but are NOT auto-injected into every session. Read them on demand when the task requires:
+
+- **BRAND_GUIDELINES.md** — Read BEFORE creating any document, presentation, email, or graphic that represents ZINN. Ensures brand consistency.
+- **PROJECT_IDEAS.md** — Backlog of past project ideas and concepts. Read when brainstorming or if Rob asks about old project concepts.
+- **TRELLO_DATA_SCHEMA.md** — Describes how Trello card descriptions are used as structured data. Read when working with Trello card data extraction or validation.
+
+## TOOLS.md reference
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
 

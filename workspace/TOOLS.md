@@ -31,6 +31,14 @@ Things like:
 - Default speaker: Kitchen HomePod
 ```
 
+## Workspace File Index
+
+Files that are NOT auto-injected but available in the workspace:
+
+- **BRAND_GUIDELINES.md** — ZINN brand rules for documents, presentations, and graphics
+- **PROJECT_IDEAS.md** — Backlog of past project ideas and concepts
+- **TRELLO_DATA_SCHEMA.md** — Trello card description data schema
+
 ## Why Separate?
 
 Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
