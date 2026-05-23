@@ -4,12 +4,25 @@
   },
   "gateway": {
     "controlUi": {
-      "allowedOrigins": ["*"]
+      "allowedOrigins": [
+        "*"
+      ]
     },
-    "trustedProxies": ["127.0.0.1"],
+    "trustedProxies": [
+      "127.0.0.1"
+    ],
     "tailscale": {
       "mode": "off",
       "resetOnExit": false
+    },
+    "nodes": {
+      "pairing": {
+        "autoApproveCidrs": [
+          "100.0.0.0/8",
+          "10.0.0.0/8",
+          "172.16.0.0/12"
+        ]
+      }
     }
   },
   "auth": {
@@ -38,17 +51,39 @@
         "primary": "deepseek/deepseek-v4-flash"
       },
       "models": {
-        "anthropic/claude-opus-4-7": { "alias": "Claude Opus" },
-        "anthropic/claude-sonnet-4-6": { "alias": "Claude Sonnet" },
-        "anthropic/claude-haiku-4-5-20251001": { "alias": "Claude Haiku" },
-        "deepseek/deepseek-v4-flash": { "alias": "DeepSeek" },
-        "deepseek/deepseek-v4-pro": { "alias": "DeepSeek Pro" },
-        "google/gemini-2.5-flash": { "alias": "Gemini Flash" },
-        "google/gemini-2.5-pro": { "alias": "Gemini Pro" },
-        "openai/gpt-4o": { "alias": "ChatGPT" },
-        "openai/gpt-4o-mini": { "alias": "ChatGPT Mini" },
-        "openai/o3": { "alias": "OpenAI o3" },
-        "openai/o4-mini": { "alias": "OpenAI o4-mini" }
+        "anthropic/claude-opus-4-7": {
+          "alias": "Claude Opus"
+        },
+        "anthropic/claude-sonnet-4-6": {
+          "alias": "Claude Sonnet"
+        },
+        "anthropic/claude-haiku-4-5-20251001": {
+          "alias": "Claude Haiku"
+        },
+        "deepseek/deepseek-v4-flash": {
+          "alias": "DeepSeek"
+        },
+        "deepseek/deepseek-v4-pro": {
+          "alias": "DeepSeek Pro"
+        },
+        "google/gemini-2.5-flash": {
+          "alias": "Gemini Flash"
+        },
+        "google/gemini-2.5-pro": {
+          "alias": "Gemini Pro"
+        },
+        "openai/gpt-4o": {
+          "alias": "ChatGPT"
+        },
+        "openai/gpt-4o-mini": {
+          "alias": "ChatGPT Mini"
+        },
+        "openai/o3": {
+          "alias": "OpenAI o3"
+        },
+        "openai/o4-mini": {
+          "alias": "OpenAI o4-mini"
+        }
       },
       "workspace": "/data/workspace",
       "heartbeat": {
@@ -78,7 +113,9 @@
               "output": 0.28
             },
             "id": "deepseek-v4-flash",
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "maxTokens": 384000,
             "name": "DeepSeek V4 Flash",
             "reasoning": true
@@ -98,7 +135,9 @@
               "output": 3.48
             },
             "id": "deepseek-v4-pro",
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "maxTokens": 384000,
             "name": "DeepSeek V4 Pro",
             "reasoning": true
@@ -117,7 +156,9 @@
               "output": 0.42
             },
             "id": "deepseek-chat",
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "maxTokens": 8192,
             "name": "DeepSeek Chat",
             "reasoning": false
@@ -137,7 +178,9 @@
               "output": 0.42
             },
             "id": "deepseek-reasoner",
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "maxTokens": 65536,
             "name": "DeepSeek Reasoner",
             "reasoning": true
@@ -153,14 +196,25 @@
         "enabled": true,
         "provider": "gemini"
       }
+    },
+    "exec": {
+      "timeoutSec": 60,
+      "security": "full"
     }
   },
   "session": {
-    "dmScope": "per-channel-peer"
+    "dmScope": "main"
   },
   "skills": {
     "entries": {
       "node-connect": {
+        "enabled": true
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "admin-http-rpc": {
         "enabled": true
       }
     }

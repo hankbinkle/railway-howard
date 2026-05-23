@@ -4,16 +4,14 @@ set -euo pipefail
 WORKSPACE_DIR="${OPENCLAW_WORKSPACE_DIR:-/data/workspace}"
 STATE_DIR="${OPENCLAW_STATE_DIR:-/data/.openclaw}"
 GATEWAY_PORT="${PORT:-8080}"
-GATEWAY_TOKEN="${OPENCLAW_GATEWAY_TOKEN:?Missing OPENCLAW_GATEWAY_TOKEN env var}"
+GATEWAY_TOKEN="${OPENCLAW_GATEWAY_TOKEN-}"
 
 # Ensure state and workspace dirs exist
 mkdir -p "$STATE_DIR" "$WORKSPACE_DIR"
 
-# Copy seed config if state dir is empty
-if [ ! -f "$STATE_DIR/openclaw.json" ]; then
-    echo "[bootstrap] Seeding config from /seed-config/openclaw.json..."
-    cp /seed-config/openclaw.json "$STATE_DIR/openclaw.json"
-fi
+# ALWAYS copy seed config (overwrites any existing)
+echo "[bootstrap] Applying config from /seed-config/openclaw.json..."
+cp /seed-config/openclaw.json "$STATE_DIR/openclaw.json"
 
 # Copy seed workspace files if the workspace is empty
 if [ -z "$(ls -A "$WORKSPACE_DIR" 2>/dev/null)" ]; then
