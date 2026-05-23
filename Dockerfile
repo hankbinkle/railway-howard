@@ -14,9 +14,10 @@ COPY openclaw.json /seed-config/openclaw.json
 # Copy workspace seed files
 COPY workspace/ /seed-workspace/
 
-# Bootstrap script
+# Bootstrap + auto-approve scripts
 COPY bootstrap.sh /bootstrap.sh
-RUN chmod +x /bootstrap.sh
+COPY auto-approve.sh /auto-approve.sh
+RUN chmod +x /bootstrap.sh /auto-approve.sh
 
 EXPOSE 8080
 

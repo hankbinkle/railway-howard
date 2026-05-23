@@ -4,7 +4,7 @@ set -euo pipefail
 WORKSPACE_DIR="${OPENCLAW_WORKSPACE_DIR:-/data/workspace}"
 STATE_DIR="${OPENCLAW_STATE_DIR:-/data/.openclaw}"
 GATEWAY_PORT="${PORT:-8080}"
-GATEWAY_TOKEN="${OPENCLAW_GATEWAY_TOKEN-}"
+GATEWAY_TOKEN="${OPENCLAW_GATEWAY_TOKEN:-}"
 
 # Ensure state and workspace dirs exist
 mkdir -p "$STATE_DIR" "$WORKSPACE_DIR"
@@ -18,6 +18,11 @@ if [ -z "$(ls -A "$WORKSPACE_DIR" 2>/dev/null)" ]; then
     echo "[bootstrap] Seeding workspace from /seed-workspace..."
     cp -r /seed-workspace/* "$WORKSPACE_DIR/" 2>/dev/null || true
 fi
+
+# Start auto-approve daemon in background (polls every 15s for pending device pairings)
+echo "[bootstrap] Starting auto-approve daemon..."
+OPENCLAW_GATEWAY_TOKEN="$GATEWAY_TOKEN" nohup /auto-approve.sh > /tmp/auto-approve.log 2>&1 &
+echo "[bootstrap] auto-approve PID: $!"
 
 # Start the gateway
 echo "[bootstrap] Starting OpenClaw gateway on port $GATEWAY_PORT..."
