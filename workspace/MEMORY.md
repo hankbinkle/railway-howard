@@ -1,6 +1,28 @@
 # MEMORY.md
 
-## ZINN Conversation Agent — Always-on Railway Agent (2026-05-17)
+## Railway Howard — Always-on OpenClaw Gateway (2026-05-23)
+
+### What It Is
+A full OpenClaw gateway running on Railway at https://railway-howard-production.up.railway.app. Independent of the MacBook. Runs DeepSeek V4 Flash with identity files seeded. CLI-accessible and browser-accessible.
+
+### Architecture
+- **Dockerfile**: Custom, no wrapper. Runs `openclaw gateway run --bind lan` directly.
+- **GitHub**: https://github.com/hankbinkle/railway-howard (public)
+- **Railway project**: `railway-howard`, service: `railway-howard`
+- **Volume**: 5GB at `/data` — persists config, sessions, workspace
+- **Env vars**: 4 API keys + gateway token + state/workspace dirs
+- **Device pairing**: CLI and browser devices approved via `admin-http-rpc` plugin
+
+### Key Differences from the Conversation Agent
+The Conversation Agent was a custom Node.js Express server. Howard is a full OpenClaw gateway — same skills, plugins, and personality as the local Mac instance.
+
+### To Do
+- Live workspace sync (Dropbox or git-triggered redeploy)
+- ZINN custom skills (Trello, Dropbox, Gmail tools)
+- Memory convergence between Mac and Cloud instances
+- Channel setup (Telegram, etc.)
+
+## ZINN Conversation Agent — Always-on Railway Agent (2026-05-17) [RETIRED]
 
 ### What It Is
 A Railway-hosted conversational AI agent at `https://zinnconversationagent-production.up.railway.app/`. Always online, phone-friendly chat UI with TTS, accessible from any browser. No laptop dependency.
@@ -174,7 +196,7 @@ Examples:
 - memory/ folder, HEARTBEAT.md, IDENTITY.md need decisions on sync vs delete vs keep local
 - Full summary written to ~/.openclaw/workspace/ZINN_REMOTE_AGENT_SUMMARY.md
 
-### Deployment details
+### Deployment details [RETIRED — project deleted 2026-05-23]
 - Railway project: `zinn_conversation_agent`, service: `zinn_conversation_agent`
 - Postgres: `zinn_conversation_agent_database`
 - Deploy via RAILWAY_API_TOKEN (railway-token.txt, not railway_token.txt — old token is expired)
