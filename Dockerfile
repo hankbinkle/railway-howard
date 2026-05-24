@@ -14,10 +14,11 @@ COPY openclaw.json /seed-config/openclaw.json
 # Copy workspace seed files
 COPY workspace/ /seed-workspace/
 
-# Bootstrap + auto-approve scripts
+# Bootstrap, auto-approve, and backup scripts
 COPY bootstrap.sh /bootstrap.sh
 COPY auto-approve.sh /auto-approve.sh
-RUN chmod +x /bootstrap.sh /auto-approve.sh
+COPY dropbox_backup.sh /dropbox_backup.sh
+RUN chmod +x /bootstrap.sh /auto-approve.sh /dropbox_backup.sh
 
 EXPOSE 8080
 

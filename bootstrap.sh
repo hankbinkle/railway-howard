@@ -24,6 +24,11 @@ echo "[bootstrap] Starting auto-approve daemon..."
 OPENCLAW_GATEWAY_TOKEN="$GATEWAY_TOKEN" nohup /auto-approve.sh > /tmp/auto-approve.log 2>&1 &
 echo "[bootstrap] auto-approve PID: $!"
 
+# Start Dropbox backup daemon in background (runs daily)
+echo "[bootstrap] Starting Dropbox backup daemon..."
+nohup /dropbox_backup.sh > /tmp/dropbox_backup.log 2>&1 &
+echo "[bootstrap] dropbox_backup PID: $!"
+
 # Start the gateway
 echo "[bootstrap] Starting OpenClaw gateway on port $GATEWAY_PORT..."
 exec openclaw gateway run \
