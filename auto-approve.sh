@@ -2,7 +2,8 @@
 # Auto-approves pending device pairing requests on Howard
 # Runs as a background loop alongside the gateway
 
-API_URL="http://127.0.0.1:8080/api/v1/admin/rpc"
+GATEWAY_PORT="${PORT:-8080}"
+API_URL="http://127.0.0.1:${GATEWAY_PORT}/api/v1/admin/rpc"
 TOKEN="${OPENCLAW_GATEWAY_TOKEN:-}"
 
 if [ -z "$TOKEN" ]; then
