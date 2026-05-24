@@ -209,6 +209,48 @@
     "entries": {
       "node-connect": {
         "enabled": true
+      },
+      "account_setup": {
+        "enabled": true
+      },
+      "business_card_processor": {
+        "enabled": true
+      },
+      "contacts_sync": {
+        "enabled": true
+      },
+      "keynote_parser": {
+        "enabled": true
+      },
+      "label_manager": {
+        "enabled": true
+      },
+      "media_machine": {
+        "enabled": true
+      },
+      "project_automator": {
+        "enabled": true
+      },
+      "project_template_manager": {
+        "enabled": true
+      },
+      "proposal_estimator": {
+        "enabled": true
+      },
+      "proposal_generator": {
+        "enabled": true
+      },
+      "rfp_machine": {
+        "enabled": true
+      },
+      "saint_andrews": {
+        "enabled": true
+      },
+      "statement_harvester": {
+        "enabled": true
+      },
+      "webhook_manager": {
+        "enabled": true
       }
     }
   },
