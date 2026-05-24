@@ -204,6 +204,10 @@
     "dmScope": "main"
   },
   "skills": {
+    "load": {
+      "watch": true,
+      "watchDebounceMs": 250
+    },
     "entries": {
       "node-connect": {
         "enabled": true

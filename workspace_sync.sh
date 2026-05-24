@@ -152,7 +152,57 @@ pull_all() {
         fi
     done
     
-    log "Pulled files from Dropbox."
+    # Sync skills tree from Dropbox (list folder recursively with continue)
+    local skills_files
+    skills_files=$(python3 -c "
+import json, urllib.request, sys, os
+access_token = os.environ['_DROPBOX_TOKEN']
+member_id = os.environ.get('DROPBOX_TEAM_MEMBER_ID', '')
+headers = {
+    'Authorization': 'Bearer ' + access_token,
+    'Content-Type': 'application/json',
+}
+if member_id:
+    headers['Dropbox-API-Select-User'] = member_id
+
+def list_all(path):
+    has_more = True
+    cursor = None
+    while has_more:
+        if cursor:
+            data = json.dumps({'cursor': cursor}).encode()
+            req = urllib.request.Request('https://api.dropboxapi.com/2/files/list_folder/continue', data=data, headers=headers)
+        else:
+            data = json.dumps({'path': path, 'recursive': True, 'include_deleted': False}).encode()
+            req = urllib.request.Request('https://api.dropboxapi.com/2/files/list_folder', data=data, headers=headers)
+        resp = json.loads(urllib.request.urlopen(req).read())
+        for e in resp.get('entries', []):
+            if e['.tag'] == 'file':
+                print(f\"{e['path_display']}|{e['name']}\")
+        has_more = resp.get('has_more', False)
+        cursor = resp.get('cursor', '')
+
+list_all('/Rob Zinn/_openclaw_shared/skills')
+" 2>/dev/null || true)
+    
+    local count=0
+    IFS=$'\n'
+    for entry in $skills_files; do
+        [ -z \"$entry\" ] && continue
+        local remote_path=\"${entry%%|*}\"
+        local file_name=\"${entry#*|}\"
+        # Strip /Rob Zinn/_openclaw_shared/ prefix, keep skills/...
+        local rel_path=\"${remote_path#/Rob Zinn/_openclaw_shared/}\"
+        local local_path=\"$WORKSPACE_DIR/\"$rel_path
+        
+        if download_file \"$remote_path\" \"$local_path\" > /dev/null 2>&1; then
+            count=$((count + 1))
+        fi
+    done
+    unset IFS
+    
+    log \"Pulled $count skill files from Dropbox.\"
+    log \"Pulled workspace files from Dropbox.\"
 }
 
 push_changes() {
@@ -170,6 +220,22 @@ push_changes() {
     if [ -d "$WORKSPACE_DIR/memory" ]; then
         for f in "$WORKSPACE_DIR/memory"/*.md; do
             [ -f "$f" ] && upload_file "$f" "$DROPBOX_PATH/memory/$(basename "$f")" > /dev/null 2>&1 || true
+        done
+    fi
+    
+    # Push skills changes (if any)
+    if [ -d "$WORKSPACE_DIR/skills" ]; then
+        local skills_updated=0
+        for skill_dir in "$WORKSPACE_DIR/skills"/*/; do
+            [ -d "$skill_dir" ] || continue
+            local skill_name=$(basename "$skill_dir")
+            for f in "$skill_dir"*; do
+                [ -f "$f" ] || continue
+                local file_name=$(basename "$f")
+                local remote_path="/Rob Zinn/_openclaw_shared/skills/$skill_name/$file_name"
+                upload_file "$f" "$remote_path" > /dev/null 2>&1 || true
+                skills_updated=$((skills_updated + 1))
+            done
         done
     fi
     
