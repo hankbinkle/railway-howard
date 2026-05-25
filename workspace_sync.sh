@@ -10,7 +10,7 @@ set -euo pipefail
 
 WORKSPACE_DIR="${OPENCLAW_WORKSPACE_DIR:-/data/workspace}"
 DROPBOX_PATH="/Rob Zinn/_openclaw_workspace"
-PULL_INTERVAL=60
+PULL_INTERVAL=300
 PUSH_INTERVAL=300
 
 DROPBOX_API="https://api.dropboxapi.com"
