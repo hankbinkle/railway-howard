@@ -1,0 +1,22 @@
+{
+  "name": "_proposals",
+  "version": "1.0.1",
+  "description": "Generates professional HTML/PDF proposals from Trello Leads cards. Replaces the Qwilr + Make.com workflow entirely.",
+  "main": "generate-proposal.js",
+  "scripts": {
+    "start": "node generate-proposal.js --server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npx puppeteer browsers install chrome || echo 'Warning: Chrome install failed, will use system/bundled version'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "googleapis": "^144.0.0",
+    "node-fetch": "^2.7.0",
+    "pdf-lib": "^1.17.1",
+    "pg": "^8.20.0",
+    "puppeteer": "^24.40.0"
+  }
+}

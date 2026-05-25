@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puppeteer Header Template - Inspector</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f5f5f5;
+    font-family: Arial, sans-serif;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+  }
+
+  .info-box {
+    background: #e8f4f8;
+    border-left: 4px solid #0066cc;
+    padding: 16px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #333;
+  }
+
+  .info-box strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #0066cc;
+  }
+
+  .page-section {
+    margin-bottom: 40px;
+    border: 2px dashed #ccc;
+    padding: 20px;
+  }
+
+  .page-label {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
+  /* ============ PUPPETEER HEADER TEMPLATE ============ */
+  /* This is the exact HTML+CSS from getPdfOptions() */
+
+  #hdr-content {
+    width: 100%;
+    padding: 16px 72px 12px 72px;
+    position: relative;
+    font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  #hdr-rule {
+    border: none;
+    border-top: 1.5px solid #000;
+    margin: 0 72px;
+  }
+
+  .hdr-address {
+    font-size: 9px;
+    font-weight: 300;
+    color: #4e5757;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    text-align: right;
+    position: absolute;
+    right: 0;
+    bottom: 12px;
+    font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  .hdr-logo {
+    height: 60px;
+    width: auto;
+    display: block;
+  }
+
+  /* ============ PUPPETEER FOOTER TEMPLATE ============ */
+
+  #ftr {
+    width: 100%;
+    padding: 10px 72px;
+    text-align: center;
+    font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 8px;
+    color: #81A2B2;
+    letter-spacing: 0.5px;
+  }
+
+  .pageNumber::before {
+    content: attr(data-page);
+  }
+
+  .totalPages::before {
+    content: attr(data-total);
+  }
+
+  /* ============ PAGE MOCKUP ============ */
+
+  .page {
+    position: relative;
+    width: 8.5in;
+    height: 11in;
+    margin: 0 auto 30px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .page-header {
+    position: relative;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .page-content {
+    padding: 1.6in 0 1.6in 0;
+    min-height: 6.8in;
+    background: #fafafa;
+    font-size: 12px;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  .page-content-inner {
+    padding: 0 72px;
+  }
+
+  .page-footer {
+    position: relative;
+    border-top: 1px solid #ddd;
+  }
+
+  .content-sample {
+    margin: 16px 0;
+    padding: 12px;
+    background: white;
+    border-left: 3px solid #ddd;
+  }
+
+  .content-sample h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #333;
+  }
+
+  .content-sample p {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 6px;
+  }
+
+  /* Typography note */
+  .typography-note {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 11px;
+    color: #333;
+  }
+
+  .typography-note strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #ff9800;
+  }
+
+  /* Inspection tips */
+  .inspection-tip {
+    background: #d4edda;
+    border: 1px solid #28a745;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 11px;
+    color: #155724;
+  }
+
+  .inspection-tip strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="info-box">
+    <strong>Puppeteer Header Template Inspector</strong>
+    This page shows how Puppeteer's <code>headerTemplate</code> and <code>footerTemplate</code> render on every page of the proposal PDF. The header and footer are stamped by Puppeteer, not part of the main document content.
+  </div>
+
+  <!-- PAGE 1 -->
+  <div class="page-section">
+    <div class="page-label">Page 1</div>
+    
+    <div class="page">
+      <!-- HEADER -->
+      <div class="page-header">
+        <div id="hdr-content">
+          <svg class="hdr-logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+            <text x="20" y="70" font-size="60" font-family="Arial, sans-serif" font-weight="bold">ZINN</text>
+          </svg>
+          <div class="hdr-address">
+            1022 park street #407, jacksonville, fl 32204 &nbsp;•&nbsp; 904.352.1203 &nbsp;•&nbsp; info@zinn.ai &nbsp;•&nbsp; zinn.ai
+          </div>
+        </div>
+        <div id="hdr-rule"></div>
+      </div>
+
+      <!-- PAGE CONTENT -->
+      <div class="page-content">
+        <div class="page-content-inner">
+          <div class="content-sample">
+            <h3>Sample Content Area</h3>
+            <p>This is where the proposal main content appears. The header is stamped above this area by Puppeteer on every page.</p>
+            <p>The header includes the ZINN logo on the left and firm contact info on the right, separated by a thin rule line.</p>
+          </div>
+          <div class="content-sample">
+            <h3>Content Continues</h3>
+            <p>When the proposal spans multiple pages, Puppeteer automatically repeats the header on each page using the headerTemplate.</p>
+            <p>The margin settings (top: 1.6in) position the header above this content area.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="page-footer">
+        <div id="ftr">
+          <span class="pageNumber" data-page="1"></span> / <span class="totalPages" data-total="3"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page-section">
+    <div class="page-label">Page 2</div>
+    
+    <div class="page">
+      <!-- HEADER (REPEATS) -->
+      <div class="page-header">
+        <div id="hdr-content">
+          <svg class="hdr-logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+            <text x="20" y="70" font-size="60" font-family="Arial, sans-serif" font-weight="bold">ZINN</text>
+          </svg>
+          <div class="hdr-address">
+            1022 park street #407, jacksonville, fl 32204 &nbsp;•&nbsp; 904.352.1203 &nbsp;•&nbsp; info@zinn.ai &nbsp;•&nbsp; zinn.ai
+          </div>
+        </div>
+        <div id="hdr-rule"></div>
+      </div>
+
+      <!-- PAGE CONTENT -->
+      <div class="page-content">
+        <div class="page-content-inner">
+          <div class="content-sample">
+            <h3>Header Repeats on Page 2</h3>
+            <p>Notice that the header template is identical to page 1. Puppeteer stamps it automatically.</p>
+            <p>The page number in the footer changes (now showing 2/3), but the header remains constant.</p>
+          </div>
+          <div class="content-sample">
+            <h3>Header Spacing</h3>
+            <p><strong>Top margin: 1.6in</strong> — pushes content below the header</p>
+            <p><strong>Bottom margin: 1.6in</strong> — pushes content above the footer</p>
+            <p><strong>Side margins: 0</strong> — header/footer extend full width</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER (REPEATS WITH NEW NUMBER) -->
+      <div class="page-footer">
+        <div id="ftr">
+          <span class="pageNumber" data-page="2"></span> / <span class="totalPages" data-total="3"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="page-section">
+    <div class="page-label">Page 3</div>
+    
+    <div class="page">
+      <!-- HEADER (REPEATS) -->
+      <div class="page-header">
+        <div id="hdr-content">
+          <svg class="hdr-logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+            <text x="20" y="70" font-size="60" font-family="Arial, sans-serif" font-weight="bold">ZINN</text>
+          </svg>
+          <div class="hdr-address">
+            1022 park street #407, jacksonville, fl 32204 &nbsp;•&nbsp; 904.352.1203 &nbsp;•&nbsp; info@zinn.ai &nbsp;•&nbsp; zinn.ai
+          </div>
+        </div>
+        <div id="hdr-rule"></div>
+      </div>
+
+      <!-- PAGE CONTENT -->
+      <div class="page-content">
+        <div class="page-content-inner">
+          <div class="content-sample">
+            <h3>Final Page</h3>
+            <p>The header is present on the final page as well. Puppeteer renders it on every page of the PDF.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER (REPEATS WITH FINAL NUMBER) -->
+      <div class="page-footer">
+        <div id="ftr">
+          <span class="pageNumber" data-page="3"></span> / <span class="totalPages" data-total="3"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STYLING NOTES -->
+  <div class="typography-note">
+    <strong>Header Template Styling Details:</strong>
+    <ul style="margin-left: 16px; margin-top: 6px;">
+      <li><strong>Logo:</strong> height 60px, auto width (embedded as base64 or text "ZINN")</li>
+      <li><strong>Address:</strong> font-size 9px, weight 300, color #4e5757</li>
+      <li><strong>Address positioning:</strong> absolute, right-aligned 72px from edge</li>
+      <li><strong>Rule line:</strong> 1.5px solid black, separates header from content</li>
+      <li><strong>Font family:</strong> Avenir Next (with fallbacks: Avenir, Helvetica Neue, Helvetica, Arial)</li>
+      <li><strong>Letter-spacing:</strong> 0.4px on address text</li>
+    </ul>
+  </div>
+
+  <div class="inspection-tip">
+    <strong>How to Inspect in Dev Tools:</strong>
+    <ol style="margin-left: 16px; margin-top: 6px;">
+      <li>Right-click on the header area → Inspect Element</li>
+      <li>Check the <code>#hdr-content</code> div padding and layout</li>
+      <li>Inspect the <code>.hdr-address</code> for positioning, font-size, and color</li>
+      <li>View the <code>#hdr-rule</code> border styling</li>
+      <li>Try editing CSS in Dev Tools to experiment with changes</li>
+      <li>Check Computed styles to see what Spartan font properties are actually applied</li>
+    </ol>
+  </div>
+
+</div>
+
+</body>
+</html>

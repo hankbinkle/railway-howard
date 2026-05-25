@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{project_name}} — Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: #F2F6F7;
+    font-family: 'Spartan', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    color: #242C39;
+    letter-spacing: 0.5px;
+    line-height: 1.7;
+    padding: 40px 20px;
+  }
+
+  .wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #ffffff;
+  }
+
+  /* ---- HEADER ---- */
+  .header {
+    background: #ffffff;
+    padding: 32px 48px 24px 48px;
+    text-align: left;
+  }
+  .header img { height: 90px; width: auto; }
+  .header-rule { border: none; border-top: 2px solid #000000; margin: 0; }
+
+  /* ---- SECTIONS ---- */
+  .section {
+    padding: 40px 72px;
+    border-bottom: 1px solid #E0E8EC;
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  /* ---- LETTER BLOCK ---- */
+  .letter-meta {
+    font-size: 11px;
+    color: #000000;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+    line-height: 1.9;
+  }
+  .letter-meta strong { color: #000000; font-weight: 400; }
+  .salutation { font-size: 14px; color: #000000; margin-bottom: 16px; }
+  .letter-body { font-size: 13px; color: #000000; line-height: 1.8; }
+  .letter-body p { margin-bottom: 12px; }
+  .letter-signoff { margin-top: 32px; }
+  .signoff-closing { font-size: 13px; color: #000000; margin: 0 0 4px 0; }
+  .signoff-name { font-size: 13px; color: #000000; margin: 0 0 20px 0; }
+  .signoff-rule { border-top: 1px solid #cccccc; margin: 0 0 16px 0; width: 180px; }
+  .signoff-title { font-size: 12px; color: #242C39; font-weight: 600; margin: 0 0 2px 0; }
+  .signoff-firm { font-size: 12px; color: #4e5757; margin: 0 0 2px 0; }
+  .signoff-contact { font-size: 12px; color: #4e5757; margin: 0 0 2px 0; }
+  .signoff-contact a { color: #4e5757; text-decoration: none; }
+
+  /* ---- SECTION HEADING ---- */
+  h2.section-label {
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: #000000;
+    margin-bottom: 20px;
+    text-transform: lowercase;
+  }
+  h1.gc-title {
+    font-size: 26px;
+    font-weight: 300;
+    color: #000000;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-transform: lowercase;
+  }
+  h3.phase-title {
+    font-size: 20px;
+    font-weight: 300;
+    color: #000000;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    margin-top: 36px;
+    text-transform: lowercase;
+  }
+  h3.phase-title:first-of-type { margin-top: 0; }
+
+  /* ---- SCOPE ---- */
+  .scope-intro { font-size: 13px; color: #000000; margin-bottom: 16px; }
+  .scope-body { font-size: 13px; color: #000000; line-height: 1.9; white-space: pre-wrap; }
+
+  /* ---- FEE TABLE ---- */
+  .fee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+  .fee-table thead tr { background: #000000; color: #ffffff; }
+  .fee-table thead th {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .fee-table thead th:last-child { text-align: right; }
+  .fee-table tbody tr { border-bottom: 1px solid #E0E8EC; }
+  .fee-table tbody tr:last-child { border-bottom: none; }
+  .fee-table tbody td {
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #000000;
+    vertical-align: top;
+  }
+  .fee-table tbody td.fee-amount-cell {
+    text-align: right;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  .fee-credit { color: #c0392b; }
+  .fee-sub-note { color: #81A2B2; font-style: italic; }
+  .fee-table tfoot tr { background: #f8f8f8; border-top: 2px solid #000000; }
+  .fee-table tfoot td {
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #000000;
+  }
+  .fee-table tfoot td:last-child { text-align: right; }
+  .fee-total-row td { font-weight: 500; }
+
+  /* Optional checkbox rows */
+  .fee-optional { opacity: 0.75; transition: opacity 0.2s; }
+  .fee-optional:has(.optional-check:checked) { opacity: 1; }
+  .optional-label { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; }
+  .optional-label input[type=checkbox] {
+    margin-top: 2px; flex-shrink: 0; cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border: 1.5px solid #242C39; background: #ffffff;
+    position: relative; transition: background 0.15s;
+  }
+  .optional-label input[type=checkbox]:checked {
+    background: #ffffff; border-color: #242C39;
+  }
+  .optional-label input[type=checkbox]:checked::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 4px; height: 8px;
+    border: 2px solid #ffffff;
+    border-top: none; border-left: none;
+    transform: translate(-50%, -60%) rotate(45deg);
+  }
+  .optional-amount { color: #81A2B2; }
+  .fee-optional:has(.optional-check:checked) .optional-amount { color: #000000; }
+
+  /* Tiered radio rows */
+  .tier-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .tier-option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border: 1px solid #E0E8EC;
+    background: #f8fafb;
+  }
+  .tier-option:has(input:checked) {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+  }
+  .tier-option input[type=radio] { display: none; }
+  .tier-label { letter-spacing: 0.5px; }
+  .tier-amount { color: #81A2B2; font-size: 10px; }
+  .tier-option:has(input:checked) .tier-amount { color: #cccccc; }
+  .tier-none .tier-label { font-style: italic; }
+  .tiered-display { color: #000000; }
+
+  /* ---- PHASE DELIVERABLES ---- */
+  .phase-desc { font-size: 13px; color: #81A2B2; font-style: italic; margin-bottom: 20px; line-height: 1.7; }
+  .phase-list { list-style: none; padding: 0; margin: 0 0 8px 0; break-inside: avoid; page-break-inside: avoid; }
+  .phase-list li {
+    font-size: 13px;
+    color: #000000;
+    padding: 5px 0 5px 16px;
+    position: relative;
+    border-bottom: 1px solid #eeeeee;
+    line-height: 1.6;
+  }
+  .phase-list li:before { content: "\2022"; position: absolute; left: 0; color: #000000; font-size: 16px; line-height: 1.4; }
+  .phase-list li strong { font-weight: 600; color: #000000; }
+  .phase-sublist { list-style: none; padding: 0; margin: 6px 0 0 16px; }
+  .phase-sublist li {
+    font-size: 12px;
+    padding: 3px 0 3px 12px;
+    border-bottom: none;
+    color: #4e5757;
+  }
+  .phase-sublist li:before { content: "•"; position: absolute; left: 0; }
+
+  /* ---- FD TABLE ---- */
+  .fd-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 11px;
+  }
+  .fd-table thead tr { background: #000000; color: #ffffff; }
+  .fd-table thead th {
+    padding: 8px 12px;
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+  .fd-table thead th.fd-service-col { text-align: left; width: 55%; }
+  .fd-tier-active { background: #333333 !important; }
+  .fd-table tbody tr { border-bottom: 1px solid #E0E8EC; }
+  .fd-table tbody td { padding: 8px 12px; vertical-align: middle; color: #4e5757; }
+  .fd-table tbody td:first-child { color: #242C39; }
+  .fd-check { text-align: center; color: #000000; font-size: 14px; }
+  .fd-empty { text-align: center; color: #cccccc; }
+  .fd-col-active { background: #fafafa; }
+
+  /* ---- BILLING BLOCK ---- */
+  .billing-block h3 {
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    margin: 20px 0 8px;
+    letter-spacing: 0.5px;
+  }
+  .billing-block h3:first-child { margin-top: 0; }
+  .billing-block p { font-size: 13px; color: #000000; line-height: 1.8; margin-bottom: 8px; }
+
+  /* ---- ACCEPTANCE ---- */
+  .acceptance-section { background: #fafcfc; }
+  .acceptance-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 24px;
+    margin-bottom: 20px;
+  }
+  .acceptance-field { flex: 1 1 100%; }
+  .acceptance-field-half { flex: 1 1 calc(50% - 12px); }
+  .acceptance-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #81A2B2;
+    margin-bottom: 6px;
+  }
+  .acceptance-line {
+    border-bottom: 1px solid #242C39;
+    min-height: 28px;
+    font-size: 12px;
+    color: #4e5757;
+    padding-bottom: 4px;
+  }
+  .acceptance-sig-line { min-height: 44px; }
+  .acceptance-date-line { color: #81A2B2; }
+  .acceptance-instructions {
+    font-size: 11px;
+    color: #81A2B2;
+    margin-top: 8px;
+  }
+  .acceptance-instructions a { color: #81A2B2; }
+
+  /* ---- GENERAL CONDITIONS (GC BODY) ---- */
+  .gc-body .section { padding: 34px 62px; }
+  .gc-body h2.section-label { font-size: 15px; margin-bottom: 17px; }
+  .gc-body .legal-text { font-size: 11px; }
+  .gc-body .legal-list li { font-size: 11px; }
+  .gc-body .billing-block h3 { font-size: 12px; }
+  .gc-body .billing-block p { font-size: 11px; }
+  .gc-body .fee-table tbody td { font-size: 10px; padding: 10px 14px; }
+  .gc-body .fee-table thead th { font-size: 9px; padding: 8px 14px; }
+
+  .legal-text { font-size: 13px; color: #000000; line-height: 1.8; margin-bottom: 16px; }
+  .legal-list { margin: 12px 0 12px 20px; padding: 0; }
+  .legal-list li { font-size: 13px; color: #000000; line-height: 1.8; margin-bottom: 6px; }
+  .definitions { margin-top: 16px; }
+  .definitions dt { font-size: 13px; font-weight: 400; color: #000000; display: inline; }
+  .definitions dd { font-size: 13px; color: #000000; display: inline; margin: 0; }
+  .definitions dd:after { content: ""; display: block; margin-bottom: 4px; }
+
+  /* ---- TEAM ---- */
+  .team-member { display: flex; gap: 24px; margin-bottom: 32px; align-items: flex-start; }
+  .team-photo { width: 100px; height: 100px; border-radius: 0; object-fit: cover; object-position: top; flex-shrink: 0; filter: grayscale(20%); }
+  .team-info h4 { font-size: 13px; font-weight: 400; color: #4e5757; margin-bottom: 2px; letter-spacing: 0.5px; }
+  .team-info .team-title { font-size: 10px; color: #81A2B2; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .team-info p { font-size: 12px; color: #4e5757; line-height: 1.8; }
+
+  /* ---- CLIENT LIST ---- */
+  .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 40px; }
+  .client-category h4 {
+    font-size: 10px; font-weight: 400; color: #81A2B2;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #E0E8EC;
+  }
+  .client-category ul { list-style: none; padding: 0; margin: 0; }
+  .client-category li { font-size: 11px; color: #4e5757; padding: 3px 0; }
+
+  /* ---- PORTFOLIO ---- */
+  .portfolio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 0 72px; }
+  .portfolio-grid img { width: 100%; height: 180px; object-fit: cover; display: block; filter: grayscale(15%); }
+
+  /* ---- ABOUT / HOW WE WORK ---- */
+  .about-text { font-size: 14px; font-weight: 300; color: #4e5757; line-height: 1.9; margin-bottom: 24px; font-style: italic; }
+  .values-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  .values-list li { font-size: 11px; color: #81A2B2; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ---- FOOTER ---- */
+  .footer-rule { border: none; border-top: 2px solid #000000; margin: 0; }
+  .footer { background: #ffffff; padding: 20px 72px; text-align: center; }
+  .footer p { font-size: 10px; color: #000000; letter-spacing: 1px; line-height: 1.8; }
+  .footer a { color: #000000; text-decoration: none; }
+
+  /* ---- SECTION DIVIDER ---- */
+  .section-accent { width: 32px; height: 2px; background: #000000; margin-bottom: 20px; }
+
+  /* ---- PRINT / PDF ---- */
+  @media print {
+    body { background: #ffffff; padding: 0; }
+    .wrapper { max-width: 100%; }
+
+    /* Never break inside these atoms */
+    .team-member,
+    .fee-table,
+    .fee-table tbody tr,
+    .fee-table tfoot tr,
+    .acceptance-section,
+    .phase-group,
+    .phase-list > li,
+    .phase-sublist > li {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* Each phase group gets breathing room when it lands at top of page */
+    .phase-group { margin-top: 24px; }
+
+    /* Sections: allow page breaks within them (content may be long);
+       atoms inside (.phase-group, .fee-table, etc.) carry their own avoid rules */
+    .section,
+    .gc-body .section {
+      break-before: auto;
+      page-break-before: auto;
+    }
+
+    /* Short sections that should never split internally */
+    .letter-meta,
+    .acceptance-section,
+    .billing-block {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* General conditions intro section and any section with a gc-title heading forces a new page */
+    .section.gc-intro,
+    .section:has(h1.gc-title) {
+      break-before: page;
+      page-break-before: always;
+    }
+
+    /* Team members: ensure padding at top of page when broken */
+    .team-member {
+      padding-top: 8px;
+    }
+
+    /* Keep heading glued to the content that follows it */
+    h2.section-label,
+    h3.phase-title,
+    .phase-desc {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    /* Hide static header/footer — puppeteer stamps them on every page instead */
+    .header, .header-rule, .footer, .footer-rule { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    {{header_logo}}
+  </div>
+  <hr class="header-rule">
+
+  <!-- DOCUMENT TITLE -->
+  <div style="padding: 28px 72px 0 72px;">
+    <h1 class="gc-title" style="margin-bottom:0;">fee proposal</h1>
+  </div>
+  <hr style="border:none;border-top:1px solid #E0E8EC;margin:20px 72px 0 72px;">
+
+  <!-- 1. INTRO LETTER -->
+  <div class="section">
+    <div class="letter-meta">
+      <strong>to:</strong> {{client}}<br>
+      {{client_address}}<br>
+      {{client_email}}<br>
+      {{client_phone}}<br>
+      <br>
+      <strong>re:</strong> {{project_name}}<br>
+      {{project_address}}<br>
+      <br>
+      <strong>date:</strong> {{date}}
+    </div>
+    <div class="salutation">{{client_greeting}},</div>
+    <div class="letter-body">
+      <p>I have developed this proposal for your review. I aimed to capture your priorities in the Scope of Work section so please let me know if there is anything I forgot or that you would like to add or revise.</p>
+    </div>
+    <div class="letter-signoff">
+      <p class="signoff-closing">Thank you,</p>
+      <p class="signoff-name">Rob.</p>
+      <div class="signoff-rule"></div>
+      <p class="signoff-title">Rob Zinn, AIA NCARB</p>
+      <p class="signoff-firm">ZINN architecture + interiors</p>
+      <p class="signoff-contact"><a href="https://zinn.ai">zinn.ai</a></p>
+      <p class="signoff-contact">904.257.6117</p>
+    </div>
+  </div>
+
+  <!-- 2. SCOPE OF WORK -->
+  <div class="section">
+    <h1 class="gc-title">scope of work</h1>
+    <div class="section-accent"></div>
+    <p class="scope-intro">The following scope is based on the work necessary to complete the Project as understood from our initial conversation(s).</p>
+    <div class="scope-body">{{scope}}</div>
+  </div>
+
+  <!-- 3. FEE TABLE -->
+  <div class="section">
+    <h1 class="gc-title">proposed fee</h1>
+    <div class="section-accent"></div>
+    {{fee_table}}
+  </div>
+
+  <!-- 4. ACCEPTANCE -->
+  {{acceptance_block}}
+
+  <!-- 5. PHASES (only listed on card) -->
+  {{phases_block}}
+
+  <!-- 6. OUR TEAM (long only) -->
+  {{team_block}}
+
+  <!-- 7. HOW WE WORK (long only) -->
+  {{about_block}}
+
+  <!-- 8. CLIENT LIST (long only) -->
+  {{client_list_block}}
+
+  <!-- portfolio (long only) -->
+  {{portfolio_block}}
+
+  <!-- MARKETING PLUG (medium + long) -->
+  {{marketing_plug_block}}
+
+  <!-- ═══════════ GENERAL CONDITIONS ═══════════ -->
+  <div class="section gc-intro">
+    <h1 class="gc-title">general conditions</h1>
+    <div class="section-accent"></div>
+    <p class="legal-text">ZINN Architecture and Interiors (hereafter &#8220;Architect&#8221;) does not guarantee the performance of, and has no responsibility for, the acts or omissions of any contractor, subcontractor, supplier or any other entity furnishing materials or performing any work on the Project (hereafter &#8220;Project&#8221;). Architect and consultants shall have no responsibility for the identification, discovery, presence, handling, removal or disposal of, or exposure of persons to, hazardous materials in any form at the Project site.</p>
+  </div>
+
+  <div class="gc-body">
+
+  <div class="section">
+    <h2 class="section-label">definitions</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Terms used in this document are typically understood as follows but not all Projects will require every item listed.</p>
+    <ul class="legal-list">
+      <li><em>MEP:</em> Mechanical, Electrical, and Plumbing Engineering</li>
+      <li><em>F&amp;F:</em> Hard finishes, plumbing and lighting fixtures</li>
+      <li><em>Phase:</em> Any of the project work periods noted above. They include the following and are allocated project resources according to the noted percentage: <em>Pre-Design (PD) - 10%, Schematic Design (SD) - 40%, Design Development (DD) - 20%, Permit/Construction Drawings (CD) - 25%, Construction Administration (CA) - 5%</em></li>
+      <li><em>Scheduling/Schedules:</em> Lists in table format such as the Finish and Fixture Schedule or Door Schedule.</li>
+      <li><em>Stated Construction Budget:</em> This is the construction cost or costs range that the Client has identified as the target amount that will be set aside for the project&#8217;s completion. ZINN relies on this metric as an accurate and faithful reporting of the Client&#8217;s financial capabilities and willingness to commit such funds to the completion of the project.</li>
+      <li><em>Estimated Construction Budget:</em> This is the estimated cost to construct the project based on current market-rate construction unit costs per square foot. The <em>Estimated Construction Budget</em> is not a bid for construction nor a guarantee of construction costs.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">scope changes</h2>
+    <div class="section-accent"></div>
+    <ul class="legal-list">
+      <li>This proposal is based on <em>Stated Construction Budget</em> and the <em>Scope</em> noted above.</li>
+      <li>In the event that the <em>Scope</em> and the <em>Estimated Construction Budget</em> do not align, either the <em>Scope</em> will need to be reduced to match the <em>Stated Construction Budget</em> or the <em>Stated Construction Budget</em> will need to increase to match the Scope at the completion of Schematic Design.</li>
+      <li>Upon a change to the <em>Stated Construction Budget</em> or <em>Scope</em>, ZINN will prepare a proposal adjustment to account for the change in work required to bring the project drawings to Permit/Construction level.</li>
+      <li>Any fee increases or decreases will be pro-rated over the course of the remaining payments.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">engineering</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">If your project needs MEP and/or Structural engineering services, we solicit fee proposals from reputable consulting engineering firms to provide the required services. Once Schematic Design is complete, the <em>Scope</em> of the project is better defined and this is an appropriate time to solicit proposals from qualified engineers. ZINN does not charge pass-through fees or markup engineering proposals. Agreements for engineering services are contracted directly between the client and the engineer to keep the lines of communication open between all members of the design team. ZINN nonetheless will help the Client solicit such proposals and will provide engineering coordination to administer their work.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">drafts</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">A maximum of 3 drafts will be provided for any given Deliverable (an initial issue and 2 rounds of revisions). Additional drafts may be requested and will be billed as Additional Services.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">comment and production periods</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">To insure efficient collaboration with the Client, the Services and Deliverables noted above will be provided to the Client via Comment and Production periods for each draft. Upon issuance of a deliverable, whether via email or as a presentation at an in-person meeting, the Comment Period commences. During the Comment Period:</p>
+    <ul class="legal-list">
+      <li>the Client provides feedback, notes, and revision requests to the Architect</li>
+      <li>the comments will be logged by the Architect in a Markup Copy that will show the comments in relation to the relevant areas on the Deliverable</li>
+      <li>the Client may change or revise their comments at any time</li>
+      <li>no work is undertaken by ZINN to advance the project development until the Client provides a signed Draft.</li>
+    </ul>
+    <p class="legal-text" style="margin-top:12px;">During the Production Period:</p>
+    <ul class="legal-list">
+      <li>ZINN will process the markups in preparation for the next draft or meeting</li>
+      <li>We request that no additional Client comments are provided so we may be efficient about the work</li>
+    </ul>
+    <p class="legal-text" style="margin-top:12px;">Should substantive changes be requested by the Client during the Production Period, the Production Period will halt, the Comment Period will re-commence, and the current draft effort will be considered complete, counting against the number of available drafts. If the number of available drafts for the Service or Deliverable have been exhausted, the process, including both Comment and Production periods, will be undertaken as Additional Services per the hourly rates noted herein.</p>
+    <p class="legal-text" style="margin-top:12px;">The Service or Deliverable will be considered complete and the process may move onto the next Services or Deliverable upon receipt by the Architect of a signed Draft with no Markups.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">additional services</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Requests for deliverables, services, or any other work not explicitly listed in the Scope of Work section above shall be considered Additional Services and will be billed on an hourly basis in addition to the noted Fee. Client agrees to pay the Architect for Additional Services and hereby acknowledges that no further notification of this policy be rendered. Additional Services include but are not limited to the following:</p>
+    <ul class="legal-list">
+      <li>additional site visits</li>
+      <li>preparation of Pricing Sets</li>
+      <li>preparation of phased drawings (breaking the project into several periods of work)</li>
+      <li>multiple permit sets (breaking Permit Drawings into separate sets due to multiple buildings, phases, or at the request of the Building Code Official)</li>
+      <li>bid negotiation (proposing and administering contractual terms with a contractor)</li>
+      <li>value engineering (adjustments to a previously approved design to bring the project cost down)</li>
+      <li>changes to a previously approved design</li>
+      <li>3rd party Coordination or Administration (for example: working with a subcontractor or vendor who is not identified at the start of the project may require additional work)</li>
+      <li>GC correspondence/meetings (beyond the typical meetings/correspondence included in your Service Level)</li>
+      <li>interior design purchasing/logistics/staging</li>
+      <li>public hearings/historic/3rd party reviews</li>
+    </ul>
+    <p class="legal-text" style="margin-top:12px;">Additional Services will be billed on an hourly basis separate from the Service Categories above per the rates noted in the &#8220;Hourly Work&#8221; section below.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">hourly work</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Hourly work will be recorded and charged in 1/4 hour increments based on the following roles:</p>
+    <table class="fee-table" style="margin-top:16px;">
+      <thead><tr><th>role</th><th>rate</th></tr></thead>
+      <tbody>
+        <tr><td>Principal</td><td style="text-align:right;">$250/hr</td></tr>
+        <tr><td>Project Lead</td><td style="text-align:right;">$175/hr</td></tr>
+        <tr><td>Draftsperson</td><td style="text-align:right;">$125/hr</td></tr>
+        <tr><td>Administrator</td><td style="text-align:right;">$100/hr</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">other events prompting additional services</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Additional Services may also be required by any of the following as well as any other change to the Project&#8217;s operating parameters: changes to a previously approved design or layout, changes to Project&#8217;s objective or Scope, changes in the Project&#8217;s finances or budget, changes to the Client&#8217;s representative or Project team, contractor changes, discovery of unanticipated field conditions, discovery of errors in Client-provided project documentation, property or other legal disputes between the Client and any third party, changes in client taste or branding goals, changes in material or product availability, code or other regulatory changes, change to the Project schedule or delivery method, market changes, changes in the Client&#8217;s health, changes to Project phasing or intended timeline, or any such change to Project information, context, or goals.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">payment and invoicing</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Invoices will be issued on a monthly basis and payment is due upon receipt. The Client agrees to pay the amounts invoiced by Architect in a timely manner. Outstanding invoices that remain unpaid for 30 days will result in suspension of work on the Project. Should invoices remain unpaid beyond 30 days, a late fee of 3% of the balance or $300 whichever is greater will be applied to the Client&#8217;s account and will thereafter accrue interest each month at that rate until the balance is settled. In addition, Architect shall be compensated for any time expended or costs accumulated in efforts to collect payment.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">business hours</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">ZINN is dedicated to maintaining a healthy life/work balance for our staff and employees. The office is open from 9&#8211;5 Monday through Friday and does not work, correspond, or attend meetings outside these hours. We appreciate your understanding in observance of this policy.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">OFCI (owner-furnished, contractor installed) items</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Should the project include OFCI items, the General Contractor will only include installation pricing. The obligation to select, order, track, schedule, and stage such items will fall on the Client. ZINN can assist with these tasks on an hourly basis if requested.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">construction cost and value engineering</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Based on our initial conversations, the Architect has utilized square foot Unit Costs in determining an Estimated Project Cost for the purposes of this proposal. ZINN ties Unit Costs to the actual costs of recently completed projects. Unit Costs therefore do not always exactly match market costs which can fluctuate dramatically over the course of the Architect&#8217;s work. Actual costs for this project will only become available many months or years after this Proposal is developed. Estimates provided by Architect therefore, either verbally or in writing, are no guarantee of Project cost. Any additional work at the behest of the Client to adjust the Project Scope and/or Permit/Bid/Construction Documents in order to change the Project costs will be performed as Additional Services. Actual Project Cost is determined by the general contractor under separate contract.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">reimbursable expenses</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Reimbursable expenses are in addition to the noted Fee and shall include prints and reproductions, shipping/courier fees, travel expenses including meals and hotels, and mileage at a rate of $0.585 per mile. Other fees for application fees and tests will be submitted directly to the Client. All drawings are transmitted electronically via email except signed and sealed permit drawings and meeting review sets.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">reference materials</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Unless otherwise specifically indicated in writing, Architect shall be entitled to rely, without liability, on the accuracy and completeness of information provided by Client, Client&#8217;s consultants and contractors, and information from public records, without the need for independent verification. The Client shall provide full information about the objectives, schedule, constraints and existing conditions of the Project, and shall establish a budget that includes reasonable contingencies and meets the Project requirements.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">building code</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Architect will design the Project, to the best of its ability, according to the constraints of the Building Codes in effect at the commencement of this Agreement. Architect, however, cannot anticipate all possible Code interpretations that may bear on the Project nor does Architect have any control over the duration of any Building Code Official&#8217;s review. The Client shall indemnify and hold Architect harmless for any and all additional design and/or construction costs as well as for any delays arising from Building Code interpretations that differ from the Building Code analysis described on the drawings. Additionally, if the renovation or addition to an existing structure is found to trigger a code upgrade of the existing structure beyond the scope outlined herein, any additional work required to bring the existing structure into code compliance shall be considered Additional Services.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">liability</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">The Client agrees that Architect&#8217;s total aggregate liability to the Client for any and all injuries, claims, losses, expenses, or damages whatsoever, including attorney&#8217;s fees, arising out of or in any way related to the Project or this Proposal from any cause or causes, including, but not limited to Architect&#8217;s negligence, errors, omissions, strict liability, breach of contract, or breach of warranty, shall not exceed the total amount of fees paid to Architect for this Project. PURSUANT TO &sect;558.0035, FLA. STAT., AN INDIVIDUAL EMPLOYEE OR AGENT OF ZINN ARCHITECTURE + INTERIORS, INC. MAY NOT BE HELD INDIVIDUALLY LIABLE FOR NEGLIGENCE OCCURRING WITHIN THE COURSE AND SCOPE OF THIS CONTRACT. The Parties acknowledge that the limitation on individual liability provided by &sect;558.0035 does not extend beyond such negligence or to damages arising from personal injuries or property not subject to the contract.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">design control</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">During the Project term, Architect will perform all design tasks at the behest of the Client, who shall solely maintain both control and responsibility for design decisions. While Architect will advise the Client; the Client, in his or her ability to refuse or counter the advice of Architect, shall remain solely responsible for design decisions and shall hold Architect harmless for any such decisions. Acceptance by the Client of design decisions generated or recommended by Architect in no way shall relieve the Client of such responsibility.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">instruments of service</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Drawings, specifications and other documents, including those in electronic form, prepared by the Architect are Instruments of Service for use solely with respect to this Project. The Architect shall be deemed the authors and owners of their respective Instruments of Service and shall retain all common law, statutory and other reserved rights, including copyrights.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">photography and marketing</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">The Client agrees to give the Architect access to the property upon termination of construction for the purpose of photographing and documenting the completed Project. The Client further agrees that use of any such photographic materials procured at Architect&#8217;s expense and mention of the Client&#8217;s name can be freely used for the Architect&#8217;s marketing purposes.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">accreditation</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Per fair use copyright law and the Architectural Works Copyright Protection Act of 1990, the copyright of an architectural work that has been constructed prevents the making, distributing, or public display of pictures, paintings, photographs, other pictorial representations, or derivative works of the Project without the Architect&#8217;s consent if the Project is not located in or ordinarily visible from a public place. If such displays are granted Architect&#8217;s consent, the Client shall provide professional credit to the Architect for work and all reproductions shall bear accreditation and/or copyright notice in Architect&#8217;s name. Architect retains the right to reproduce, publish and display the Project in/on websites, galleries, social media websites, trade publications, design periodicals, the Architect&#8217;s portfolio, and any other media or exhibits for the purposes of recognition of creative excellence or professional advancement, and to be credited with design of the Project in connection with such uses. Subject to the other&#8217;s reasonable approval, either party may clarify its role in relation to the Project and, if applicable, the services provided to the other party.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">anti-defamation</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">Both parties hereby agree not to make false or injurious public statements about the other party as to the performance of responsibilities noted herein including, fabrication of events, misleading statements, commentary on services not rendered or outside the Scope of Work, attacks on employees&#8217; character, and/or disclosure of confidential information.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">contract</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">This Proposal shall constitute the full and complete Agreement of the parties and may be amended, added to, superseded, or waived only if both parties agree in writing.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">non-disparagement</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">The Client agrees they will not, through any medium including, but not limited to, the press, Internet or any other form of communication, disparage, defame, or otherwise damage or assail the reputation, integrity, or professionalism of the Architect, its employees, or representatives. The Architect agrees that it will not, through any medium including, but not limited to, the press, Internet or any other form of communication, disparage, defame, or otherwise damage or assail the Client&#8217;s reputation, integrity, or character. This provision shall survive the termination of this Proposal.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-label">modification and termination</h2>
+    <div class="section-accent"></div>
+    <p class="legal-text">This Proposal is re-negotiable within 30 days from the date noted above. The laws of the State of Florida shall govern this Proposal. In the event of termination, suspension or abandonment of the Project by the Client, Architect shall be compensated for services performed. Should the Architect deem the contract terminated prior to completion, the license to use and reproduce the Instruments of Service shall also terminate, the Client must return all originals and reproductions to the Architect within seven days. The Client&#8217;s failure to make payments in accordance with this Agreement shall be considered substantial nonperformance and sufficient cause for Architect to suspend or terminate services. The Client or Architect can terminate this Proposal, without cause, at any time upon 7 days written notice to the other party or immediately if the other party substantially fails to perform in accordance with the terms of this Agreement. At that time, all work completed to the termination date will be billed to the Client. Once the Client makes payment on all outstanding work performed, all obligations for payment noted herein will be terminated. Obligations as noted above shall survive in perpetuity.</p>
+  </div>
+
+  <!-- BILLING TERMS -->
+  <div class="section">
+    <h2 class="section-label">billing &amp; payment</h2>
+    <div class="section-accent"></div>
+    <div class="billing-block">
+      {{billing_block}}
+    </div>
+  </div>
+
+  </div><!-- end gc-body -->
+
+  <!-- FOOTER -->
+  <hr class="footer-rule">
+  <div class="footer">
+    <p>1022 park street #407, jacksonville, fl 32204<br>
+    <a href="tel:9043521203">904.352.1203</a> &nbsp;|&nbsp; <a href="mailto:info@zinn.ai">info@zinn.ai</a> &nbsp;|&nbsp; <a href="https://zinn.ai">zinn.ai</a></p>
+  </div>
+
+</div>
+</body>
+</html>
