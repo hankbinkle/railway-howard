@@ -13,10 +13,17 @@ mkdir -p "$STATE_DIR" "$WORKSPACE_DIR"
 echo "[bootstrap] Applying config from /seed-config/openclaw.json..."
 cp /seed-config/openclaw.json "$STATE_DIR/openclaw.json"
 
-# Copy seed workspace files if the workspace is empty
+# Copy seed workspace files (identity files only if workspace is empty)
 if [ -z "$(ls -A "$WORKSPACE_DIR" 2>/dev/null)" ]; then
     echo "[bootstrap] Seeding workspace from /seed-workspace..."
     cp -r /seed-workspace/* "$WORKSPACE_DIR/" 2>/dev/null || true
+fi
+
+# ALWAYS seed skills (overwrites any existing — skills are designed to be refreshed)
+if [ -d "/seed-workspace/skills" ]; then
+    echo "[bootstrap] Seeding skills into workspace..."
+    mkdir -p "$WORKSPACE_DIR/skills"
+    cp -r /seed-workspace/skills/* "$WORKSPACE_DIR/skills/" 2>/dev/null || true
 fi
 
 # Start auto-approve daemon in background (polls every 15s for pending device pairings)
