@@ -4,6 +4,9 @@
   },
   "gateway": {
     "mode": "local",
+    "auth": {
+      "token": "zinn-mac-howard-admin-2026"
+    },
     "controlUi": {
       "allowedOrigins": [
         "*"
