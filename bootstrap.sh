@@ -46,4 +46,5 @@ echo "[bootstrap] Starting OpenClaw gateway on port $GATEWAY_PORT..."
 exec openclaw gateway run \
     --port "$GATEWAY_PORT" \
     --bind lan \
-    --token "$GATEWAY_TOKEN"
+    --token "$GATEWAY_TOKEN" \
+    --allow-unconfigured
