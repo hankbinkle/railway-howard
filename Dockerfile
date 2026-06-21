@@ -14,6 +14,9 @@ COPY openclaw.json /seed-config/openclaw.json
 # Copy workspace seed files
 COPY workspace/ /seed-workspace/
 
+# Copy parse-lead AI server
+COPY parse-lead-server.js /parse-lead-server.js
+
 # Bootstrap, auto-approve, backup, and workspace sync scripts
 COPY bootstrap.sh /bootstrap.sh
 COPY auto-approve.sh /auto-approve.sh

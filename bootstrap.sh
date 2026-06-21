@@ -41,6 +41,11 @@ echo "[bootstrap] Starting workspace sync daemon..."
 nohup /workspace_sync.sh > /tmp/workspace_sync.log 2>&1 &
 echo "[bootstrap] workspace_sync PID: $!"
 
+# Start parse-lead AI server in background
+echo "[bootstrap] Starting parse-lead AI server..."
+nohup node /parse-lead-server.js > /tmp/parse-lead-server.log 2>&1 &
+echo "[bootstrap] parse-lead-server PID: $!"
+
 # Start the gateway
 echo "[bootstrap] Starting OpenClaw gateway on port $GATEWAY_PORT..."
 exec openclaw gateway run \
