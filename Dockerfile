@@ -3,7 +3,7 @@ FROM node:24-slim
 
 # Install OpenClaw (pinned version) + curl + jq for ZINN service calls
 RUN apt-get update -qq && apt-get install -y -qq curl jq && rm -rf /var/lib/apt/lists/*
-RUN npm install -g openclaw@2026.5.20
+RUN npm install -g openclaw@2026.6.11
 
 # Create directories
 RUN mkdir -p /data/.openclaw /seed-workspace /seed-config
@@ -14,7 +14,7 @@ COPY openclaw.json /seed-config/openclaw.json
 # Copy workspace seed files
 COPY workspace/ /seed-workspace/
 
-# Copy parse-lead AI server
+# Copy parse-lead II server
 COPY parse-lead-server.js /parse-lead-server.js
 
 # Bootstrap, auto-approve, backup, and workspace sync scripts
