@@ -6,6 +6,10 @@ STATE_DIR="${OPENCLAW_STATE_DIR:-/data/.openclaw}"
 GATEWAY_PORT="${PORT:-8080}"
 GATEWAY_TOKEN="${OPENCLAW_GATEWAY_TOKEN:-}"
 
+# Auto-update OpenClaw to latest version on every start
+echo "[bootstrap] Updating OpenClaw to latest version..."
+npm update -g openclaw 2>&1 || echo "[bootstrap] npm update failed, continuing with installed version"
+
 # Ensure state and workspace dirs exist
 mkdir -p "$STATE_DIR" "$WORKSPACE_DIR"
 
