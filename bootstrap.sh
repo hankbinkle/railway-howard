@@ -50,6 +50,23 @@ echo "[bootstrap] Starting parse-lead AI server..."
 nohup node /parse-lead-server.js > /tmp/parse-lead-server.log 2>&1 &
 echo "[bootstrap] parse-lead-server PID: $!"
 
+# Configure agent auth profiles from environment variables
+echo "[bootstrap] Configuring agent auth profiles..."
+OPENCLAW_STATE_DIR="$STATE_DIR" openclaw onboard \
+    --non-interactive \
+    --accept-risk \
+    --deepseek-api-key "${DEEPSEEK_API_KEY:-}" \
+    --openai-api-key "${OPENAI_API_KEY:-}" \
+    --anthropic-api-key "${ANTHROPIC_API_KEY:-}" \
+    --gemini-api-key "${GEMINI_API_KEY:-}" \
+    --skip-bootstrap \
+    --skip-channels \
+    --skip-skills \
+    --skip-ui \
+    --skip-search \
+    --skip-health \
+    2>&1 | sed 's/^/[bootstrap] onboard: /' || echo "[bootstrap] Auth config completed (ok if some keys were empty)"
+
 # Start the gateway
 echo "[bootstrap] Starting OpenClaw gateway on port $GATEWAY_PORT..."
 exec openclaw gateway run \
