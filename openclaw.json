@@ -1,11 +1,11 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.5.20"
+    "lastTouchedVersion": "2026.7.1-2"
   },
   "gateway": {
     "mode": "local",
     "auth": {
-      "token": "zinn-mac-howard-admin-2026"
+      "mode": "token"
     },
     "controlUi": {
       "allowedOrigins": [
@@ -13,7 +13,8 @@
       ]
     },
     "trustedProxies": [
-      "127.0.0.1"
+      "127.0.0.1",
+      "100.64.0.0/10"
     ],
     "tailscale": {
       "mode": "off",

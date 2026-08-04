@@ -6,16 +6,16 @@ STATE_DIR="${OPENCLAW_STATE_DIR:-/data/.openclaw}"
 GATEWAY_PORT="${PORT:-8080}"
 GATEWAY_TOKEN="${OPENCLAW_GATEWAY_TOKEN:-}"
 
-# Auto-update OpenClaw to latest version on every start
-echo "[bootstrap] Updating OpenClaw to latest version..."
-npm update -g openclaw 2>&1 || echo "[bootstrap] npm update failed, continuing with installed version"
-
 # Ensure state and workspace dirs exist
 mkdir -p "$STATE_DIR" "$WORKSPACE_DIR"
 
-# ALWAYS copy seed config (overwrites any existing)
-echo "[bootstrap] Applying config from /seed-config/openclaw.json..."
-cp /seed-config/openclaw.json "$STATE_DIR/openclaw.json"
+# Seed config ONLY if missing (preserves runtime config/device state across redeploys)
+if [ ! -f "$STATE_DIR/openclaw.json" ]; then
+    echo "[bootstrap] Seeding config from /seed-config/openclaw.json (first boot)..."
+    cp /seed-config/openclaw.json "$STATE_DIR/openclaw.json"
+else
+    echo "[bootstrap] Keeping existing config at $STATE_DIR/openclaw.json"
+fi
 
 # Copy seed workspace files (identity files only if workspace is empty)
 if [ -z "$(ls -A "$WORKSPACE_DIR" 2>/dev/null)" ]; then
@@ -23,9 +23,10 @@ if [ -z "$(ls -A "$WORKSPACE_DIR" 2>/dev/null)" ]; then
     cp -r /seed-workspace/* "$WORKSPACE_DIR/" 2>/dev/null || true
 fi
 
-# ALWAYS seed skills (overwrites any existing — skills are designed to be refreshed)
-if [ -d "/seed-workspace/skills" ]; then
-    echo "[bootstrap] Seeding skills into workspace..."
+# Seed skills ONLY if the skills dir does not exist yet
+# (Dropbox workspace_sync daemon is the live source of skill updates; don't clobber it)
+if [ ! -d "$WORKSPACE_DIR/skills" ] && [ -d "/seed-workspace/skills" ]; then
+    echo "[bootstrap] Seeding skills into workspace (first boot)..."
     mkdir -p "$WORKSPACE_DIR/skills"
     cp -r /seed-workspace/skills/* "$WORKSPACE_DIR/skills/" 2>/dev/null || true
 fi

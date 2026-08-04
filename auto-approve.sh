@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Auto-approves pending device pairing requests on Howard
 # Runs as a background loop alongside the gateway
+# Uses jq (installed in image) - python3 is NOT available in node:24-slim
 
 GATEWAY_PORT="${PORT:-8080}"
 API_URL="http://127.0.0.1:${GATEWAY_PORT}/api/v1/admin/rpc"
@@ -12,18 +13,11 @@ if [ -z "$TOKEN" ]; then
 fi
 
 while true; do
-    # List pending devices
+    # List pending devices (jq parses requestIds from payload.pending)
     PENDING=$(curl -s -H "Authorization: Bearer $TOKEN" \
         -H "Content-Type: application/json" \
         -d '{"method":"device.pair.list","params":{}}' \
-        "$API_URL" 2>/dev/null | python3 -c "
-import json,sys
-try:
-    d = json.load(sys.stdin)
-    for p in d.get('payload',{}).get('pending',[]):
-        print(p.get('requestId',''))
-except: pass
-")
+        "$API_URL" 2>/dev/null | jq -r '.payload.pending[]?.requestId // empty' 2>/dev/null)
 
     if [ -n "$PENDING" ]; then
         while IFS= read -r REQ; do

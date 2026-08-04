@@ -2,8 +2,9 @@
 FROM node:24-slim
 
 # Install OpenClaw (pinned version) + curl + jq for ZINN service calls
+# PINNED to 2026.7.1-2 (2026-08-04) - do not bump casually; version drift broke device pairing
 RUN apt-get update -qq && apt-get install -y -qq curl jq && rm -rf /var/lib/apt/lists/*
-RUN npm install -g openclaw
+RUN npm install -g openclaw@2026.7.1-2
 
 # Create directories
 RUN mkdir -p /data/.openclaw /seed-workspace /seed-config
