@@ -149,49 +149,6 @@
             "maxTokens": 384000,
             "name": "DeepSeek V4 Pro",
             "reasoning": true
-          },
-          {
-            "api": "openai-completions",
-            "compat": {
-              "maxTokensField": "max_tokens",
-              "supportsUsageInStreaming": true
-            },
-            "contextWindow": 131072,
-            "cost": {
-              "cacheRead": 0.028,
-              "cacheWrite": 0,
-              "input": 0.28,
-              "output": 0.42
-            },
-            "id": "deepseek-chat",
-            "input": [
-              "text"
-            ],
-            "maxTokens": 8192,
-            "name": "DeepSeek Chat",
-            "reasoning": false
-          },
-          {
-            "api": "openai-completions",
-            "compat": {
-              "maxTokensField": "max_tokens",
-              "supportsReasoningEffort": false,
-              "supportsUsageInStreaming": true
-            },
-            "contextWindow": 131072,
-            "cost": {
-              "cacheRead": 0.028,
-              "cacheWrite": 0,
-              "input": 0.28,
-              "output": 0.42
-            },
-            "id": "deepseek-reasoner",
-            "input": [
-              "text"
-            ],
-            "maxTokens": 65536,
-            "name": "DeepSeek Reasoner",
-            "reasoning": true
           }
         ]
       }
