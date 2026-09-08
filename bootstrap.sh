@@ -9,6 +9,26 @@ GATEWAY_TOKEN="${OPENCLAW_GATEWAY_TOKEN:-}"
 # Ensure state and workspace dirs exist
 mkdir -p "$STATE_DIR" "$WORKSPACE_DIR"
 
+# One-time recovery: restore pre-update snapshot if present (e.g. after a failed version bump)
+RECOVERY_DIR="$STATE_DIR/_pre-update-backup-20260907"
+if [ -d "$RECOVERY_DIR" ]; then
+    echo "[bootstrap] Recovery: restoring pre-update snapshot from $RECOVERY_DIR"
+    if [ -f "$RECOVERY_DIR/openclaw.json" ]; then
+        cp "$RECOVERY_DIR/openclaw.json" "$STATE_DIR/openclaw.json"
+    fi
+    if [ -d "$RECOVERY_DIR/agents" ]; then
+        rm -rf "$STATE_DIR/agents"
+        cp -r "$RECOVERY_DIR/agents" "$STATE_DIR/agents"
+    fi
+    if [ -f "$RECOVERY_DIR/openclaw.sqlite" ]; then
+        mkdir -p "$STATE_DIR/state"
+        cp "$RECOVERY_DIR/openclaw.sqlite" "$STATE_DIR/state/openclaw.sqlite"
+        rm -f "$STATE_DIR/state/openclaw.sqlite-wal" "$STATE_DIR/state/openclaw.sqlite-shm"
+    fi
+    mv "$RECOVERY_DIR" "${RECOVERY_DIR}.applied"
+    echo "[bootstrap] Recovery complete"
+fi
+
 # Seed config ONLY if missing (preserves runtime config/device state across redeploys)
 if [ ! -f "$STATE_DIR/openclaw.json" ]; then
     echo "[bootstrap] Seeding config from /seed-config/openclaw.json (first boot)..."
